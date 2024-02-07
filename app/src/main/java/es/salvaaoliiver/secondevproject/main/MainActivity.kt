@@ -1,11 +1,12 @@
-package es.salvaaoliiver.secondevproject
+package es.salvaaoliiver.secondevproject.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import es.salvaaoliiver.secondevproject.R
 
-class LoginActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_main)
     }
 }
