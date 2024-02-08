@@ -1,5 +1,6 @@
 package es.salvaaoliiver.secondevproject.main.database
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
@@ -37,6 +38,49 @@ object RecipesRepository {
         }
         return recipes
     }
+
+    // GET PUBLIC RECIPES
+    suspend fun loadPublicRecipes(): List<Recipe> {
+        val publicRecipes = mutableListOf<Recipe>()
+        try {
+            val query = FirebaseFirestore.getInstance()
+                .collection("recetas")
+                .whereEqualTo("publica", true)
+                .get()
+                .await()
+
+            for (document in query.documents) {
+                val recipe = Recipe(
+                    title = document["titulo"].toString(),
+                    steps = document["pasos"].toString(),
+                    imagePath = document["imagenURL"].toString(),
+                    public = document["publica"] as Boolean
+                )
+                publicRecipes.add(recipe)
+            }
+        } catch (e: Exception) {
+            Log.e("RecipesRepository", "Error loading public recipes", e)
+        }
+        return publicRecipes
+    }
+
+    // ADD RECIPE
+    suspend fun addRecipe(recipe: Recipe, onSuccess: () -> Unit) {
+        val recetas = FirebaseFirestore.getInstance().collection("recetas")
+
+        val newReceta = hashMapOf(
+            "usuarioId" to userID,
+            "titulo" to recipe.title,
+            "pasos" to recipe.steps,
+            "imagenURL" to recipe.imagePath,
+            "publica" to recipe.public
+        )
+
+        recetas.add(newReceta)
+            .addOnSuccessListener { onSuccess() }
+            .addOnFailureListener { e -> Log.e("Firestore", "Error adding recipe", e) }
+    }
+
 
     // GET USER BY EMAIL
     suspend fun getUserIdByEmail(email: String): String? {

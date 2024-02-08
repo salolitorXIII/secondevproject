@@ -2,6 +2,7 @@ package es.salvaaoliiver.secondevproject.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import es.salvaaoliiver.secondevproject.login.AuthManager
 import es.salvaaoliiver.secondevproject.main.add.AddFragment
 import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
 import es.salvaaoliiver.secondevproject.main.home.HomeFragment
+import es.salvaaoliiver.secondevproject.main.search.SearchFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,28 +22,32 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var homeFragment: HomeFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-        lifecycleScope.launch(Dispatchers.IO) {
-            val idUser = RecipesRepository.getUserIdByEmail(AuthManager.getCorreo())
-            withContext(Dispatchers.Main) {
-                if (idUser != null) {
-                    RecipesRepository.setUserId(idUser)
-                }
-            }
-        }
-
-
         setSupportActionBar(binding.myToolbar)
         binding.bottomNavigation.setOnItemSelectedListener(this)
 
         val view = binding.root
-        setContentView(view)
-    }
 
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                val idUser = RecipesRepository.getUserIdByEmail(AuthManager.getCorreo())
+                if (idUser != null) {
+                    RecipesRepository.setUserId(idUser)
+                }
+                withContext(Dispatchers.Main) {
+                    setContentView(view)
+                    homeFragment = HomeFragment()
+                    loadFragment(homeFragment)
+                }
+            } catch (e: Exception) {
+                Log.e("MainActivity", "Error initializing userID", e)
+            }
+        }
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main_menu, menu)
@@ -63,10 +69,10 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
                 loadFragment(HomeFragment())
                 return true
             }
-            /*R.id.btnSearch -> {
+            R.id.btnSearch -> {
                 loadFragment(SearchFragment())
                 return true
-            }*/
+            }
             R.id.btnAdd -> {
                 loadFragment(AddFragment())
                 return true

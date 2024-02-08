@@ -34,10 +34,17 @@
         android:layout_marginBottom="10dp"
         android:hint="Steps"/>
 
+    <CheckBox
+        android:id="@+id/checkBoxPublic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Make recipe public"
+        android:layout_marginBottom="10dp"/>
+
     <Button
         android:id="@+id/btnSaveRecipe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save receipe"
+        android:text="Save recipe"
         android:layout_marginBottom="40dp"/>
 </LinearLayout>

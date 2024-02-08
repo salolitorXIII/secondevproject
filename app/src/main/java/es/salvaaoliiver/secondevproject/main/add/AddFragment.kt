@@ -4,20 +4,27 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentAddBinding
+import es.salvaaoliiver.secondevproject.main.database.Recipe
+import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
+import kotlinx.coroutines.launch
 import java.util.UUID
 
 class AddFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
     private var imagenPrincipal: Uri? = null
-
     private lateinit var storageRef: StorageReference
+    private var isRecipePublic: Boolean = false
 
     companion object {
         private const val REQUEST_IMAGE_PICK = 1
@@ -43,6 +50,10 @@ class AddFragment : Fragment() {
         binding.btnSaveRecipe.setOnClickListener {
             uploadRecipe()
         }
+
+        binding.checkBoxPublic.setOnCheckedChangeListener { _, isChecked ->
+            isRecipePublic = isChecked
+        }
     }
 
     private fun openImagePicker() {
@@ -55,30 +66,56 @@ class AddFragment : Fragment() {
         val title = binding.editTextTitle.text.toString()
         val steps = binding.editTextSteps.text.toString()
 
-        if (title.isNotEmpty() && steps.isNotEmpty() && imagenPrincipal != null) {
-            val imageRef = storageRef.child("imagenes/${UUID.randomUUID()}.jpg")
+        if (title.isNotEmpty() && steps.isNotEmpty()) {
+            if (imagenPrincipal != null) {
+                val imageRef = storageRef.child("imagenes/${UUID.randomUUID()}.jpg")
 
-            val uploadTask = imageRef.putFile(imagenPrincipal!!)
+                val uploadTask = imageRef.putFile(imagenPrincipal!!)
 
-            uploadTask.continueWithTask { task ->
-                if (!task.isSuccessful) {
-                    task.exception?.let {
-                        throw it
+                uploadTask.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
+                    }
+                    imageRef.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val downloadUri = task.result
+                        val recipe = Recipe(title, steps, downloadUri.toString(), isRecipePublic)
+                        lifecycleScope.launch {
+                            try {
+                                RecipesRepository.addRecipe(recipe) {
+                                    Toast.makeText(context, "successful", Toast.LENGTH_SHORT).show()
+                                }
+                            } catch (e: Exception) {
+                                Log.e("MainActivity", "Error al agregar receta", e)
+                            }
+                        }
+                    } else {
+                        Log.e("MainActivity", "Error al subir la imagen")
                     }
                 }
-                imageRef.downloadUrl
-            }.addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val downloadUri = task.result
-                    // Ahora puedes guardar 'downloadUri' en Firestore junto con otros datos de la receta (título, pasos, etc.)
-                    // Por simplicidad, aquí solo mostramos la URL de la imagen subida
-                    println("URL de la imagen subida: $downloadUri")
-                } else {
-                    // Manejar el error
+            } else {
+                val recipe = Recipe(title, steps, "", isRecipePublic)
+                lifecycleScope.launch {
+                    try {
+                        RecipesRepository.addRecipe(recipe) {
+                            Toast.makeText(context, "successful", Toast.LENGTH_SHORT).show()
+                            requireActivity().supportFragmentManager.beginTransaction()
+                                .replace(R.id.menuFragmentoContainer, AddFragment())
+                                .commit()
+                        }
+                    } catch (e: Exception) {
+                        Log.e("MainActivity", "Error al agregar receta", e)
+                    }
                 }
             }
+        } else {
+            Toast.makeText(context, "Title and steps cannot be empty", Toast.LENGTH_SHORT).show()
         }
     }
+
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
