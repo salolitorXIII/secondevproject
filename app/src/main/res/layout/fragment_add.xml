@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginTop="?android:attr/actionBarSize"
+    android:layout_marginBottom="?android:attr/actionBarSize">
+
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Title"/>
+
+    <ImageView
+        android:id="@+id/imageViewCover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:maxHeight="200dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/placeholder_image"
+        android:layout_gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/editTextSteps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="Steps"/>
+
+    <Button
+        android:id="@+id/btnSaveRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save receipe"
+        android:layout_marginBottom="40dp"/>
+</LinearLayout>

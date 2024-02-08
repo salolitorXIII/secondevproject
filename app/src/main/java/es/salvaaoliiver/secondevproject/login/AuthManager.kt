@@ -12,6 +12,14 @@ object AuthManager {
 
     private val auth: FirebaseAuth by lazy {Firebase.auth}
 
+    private lateinit var correo: String
+    fun setCorreo(correo: String) {
+        this.correo = correo
+    }
+    fun getCorreo(): String {
+        return correo
+    }
+
     suspend fun login(email: String, password: String): FirebaseUser?{
         return try {
             val authResult = auth.signInWithEmailAndPassword(email, password).await()

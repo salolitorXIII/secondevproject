@@ -32,9 +32,8 @@ class LoginActivity : AppCompatActivity(), LoginFragment.LoginListener {
                 val userLogged = AuthManager.login(usuario, password)
                 withContext(Dispatchers.Main) {
                     if (userLogged != null) {
-                        val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
-                            putExtra("USUARIO", usuario)
-                        }
+                        AuthManager.setCorreo(usuario)
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
                     } else {
                         Toast.makeText(this@LoginActivity, "BAD CREDENTIALS", Toast.LENGTH_SHORT).show()
