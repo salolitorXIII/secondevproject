@@ -16,7 +16,7 @@
         android:icon="@drawable/ic_add"
         android:title="add"/>
     <item
-        android:id="@+id/btnDrawer"
+        android:id="@+id/btnChat"
         android:enabled="true"
         android:icon="@drawable/ic_chat"
         android:title="chat"/>

@@ -11,6 +11,7 @@ import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentHomeBinding
 import es.salvaaoliiver.secondevproject.main.database.Recipe
 import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
+import es.salvaaoliiver.secondevproject.main.home.RecipesAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

@@ -12,6 +12,7 @@ import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.ActivityMainBinding
 import es.salvaaoliiver.secondevproject.login.AuthManager
 import es.salvaaoliiver.secondevproject.main.add.AddFragment
+import es.salvaaoliiver.secondevproject.main.chat.ChatFragment
 import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
 import es.salvaaoliiver.secondevproject.main.home.HomeFragment
 import es.salvaaoliiver.secondevproject.main.search.SearchFragment
@@ -77,10 +78,10 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
                 loadFragment(AddFragment())
                 return true
             }
-            /*R.id.btnDrawer -> {
-                loadFragment()
+            R.id.btnChat -> {
+                loadFragment(ChatFragment())
                 return true
-            }*/
+            }
         }
         return false
     }
