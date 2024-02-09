@@ -20,4 +20,9 @@
         android:enabled="true"
         android:icon="@drawable/ic_chat"
         android:title="chat"/>
+    <item
+        android:id="@+id/btnAPI"
+        android:enabled="true"
+        android:icon="@drawable/ic_api"
+        android:title="api"/>
 </menu>
