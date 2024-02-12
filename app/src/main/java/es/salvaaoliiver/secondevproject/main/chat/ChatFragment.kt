@@ -37,6 +37,7 @@ class ChatFragment : Fragment() {
         binding.recyclerViewChat.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewChat.adapter = adapter
 
+
         binding.btnSendMessage.setOnClickListener {
             val messageText = binding.editTextMessage.text.toString()
             sendMessage(messageText)

@@ -30,6 +30,7 @@ class RetrofitFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Toast.makeText(context, "Wait...", Toast.LENGTH_LONG).show()
 
         adapter = NasaPicturesAdapter(emptyList())
 

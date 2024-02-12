@@ -1,12 +1,15 @@
 package es.salvaaoliiver.secondevproject.main.chat
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import es.salvaaoliiver.secondevproject.R
+import es.salvaaoliiver.secondevproject.login.AuthManager
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -33,6 +36,12 @@ class ChatAdapter(private val messages: MutableList<Message>) :
         holder.messageTextView.text = message.text
         holder.senderTextView.text = "Remitente: ${message.senderId}"
         holder.timestampTextView.text = "Fecha: ${formatDate(message.timestamp)}"
+        if (message.senderId == AuthManager.getCorreo()){
+            holder.messageTextView.gravity = Gravity.END
+            holder.senderTextView.gravity = Gravity.END
+            holder.senderTextView.setTextColor(Color.RED)
+            holder.timestampTextView.gravity = Gravity.END
+        }
     }
 
     private fun formatDate(timestamp: Long): String {

@@ -58,7 +58,10 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
-            R.id.action_logout ->{
+            R.id.menu ->{
+                true
+            }
+            R.id.multimedia -> {
                 true
             } else -> false
         }

@@ -2,7 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_logout"
+        android:id="@+id/menu"
         android:title="menu"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/multimedia"
+        android:title="multimedia"
+        android:icon="@drawable/ic_multimedia"
+        app:showAsAction="ifRoom"/>
 </menu>
