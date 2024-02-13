@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import es.salvaaoliiver.secondevproject.R
+import es.salvaaoliiver.secondevproject.main.MainActivity
 import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 
 
@@ -24,6 +25,8 @@ class ColorPreferenceFragment : PreferenceFragmentCompat() {
                 .replace(R.id.menuFragmentoContainer, SettingsFragment())
                 .commit()
         }
+
+        (activity as MainActivity).supportActionBar?.title = "Settings"
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

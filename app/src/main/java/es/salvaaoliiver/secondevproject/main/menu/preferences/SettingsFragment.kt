@@ -6,6 +6,7 @@ import androidx.activity.addCallback
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
 import es.salvaaoliiver.secondevproject.R
+import es.salvaaoliiver.secondevproject.main.MainActivity
 import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -19,6 +20,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 .replace(R.id.menuFragmentoContainer, HomeFragment())
                 .commit()
         }
+
+        (activity as MainActivity).supportActionBar?.title = "Settings"
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

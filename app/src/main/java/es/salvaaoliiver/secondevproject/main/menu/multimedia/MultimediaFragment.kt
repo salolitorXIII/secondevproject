@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentMultimediaBinding
+import es.salvaaoliiver.secondevproject.main.MainActivity
 import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 
 class MultimediaFragment : Fragment() {
@@ -34,6 +35,8 @@ class MultimediaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMultimediaBinding.inflate(inflater, container, false)
+
+        (activity as MainActivity).supportActionBar?.title = "Multimedia"
 
 
         binding.btnLoad.setOnClickListener {

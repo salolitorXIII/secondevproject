@@ -75,7 +75,7 @@ class RetrofitFragment : Fragment() {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(NasaApiService::class.java)
-                    .getPicturesOfPreviousDays(apiKey, 4)
+                    .getPicturesOfPreviousDays(apiKey, 16)
                     .body()
             }
 
