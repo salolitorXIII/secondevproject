@@ -54,4 +54,8 @@ class LoginActivity : AppCompatActivity(), LoginFragment.LoginListener {
             .replace(R.id.menuFragmentoContainerLogin, ResetpasswordFragment())
             .commit()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

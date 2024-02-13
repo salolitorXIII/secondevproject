@@ -10,12 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentAddBinding
+import es.salvaaoliiver.secondevproject.login.LoginFragment
 import es.salvaaoliiver.secondevproject.main.MainActivity
+import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 import es.salvaaoliiver.secondevproject.main.database.Recipe
 import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
 import kotlinx.coroutines.launch
@@ -29,6 +32,17 @@ class AddFragment : Fragment() {
 
     companion object {
         private const val REQUEST_IMAGE_PICK = 1
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.menuFragmentoContainer, HomeFragment())
+                .commit()
+        }
     }
 
     override fun onCreateView(

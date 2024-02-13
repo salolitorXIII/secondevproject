@@ -3,15 +3,28 @@ package es.salvaaoliiver.secondevproject.main.menu.preferences
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 import es.salvaaoliiver.secondevproject.R
+import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 
 
 class ColorPreferenceFragment : PreferenceFragmentCompat() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.menuFragmentoContainer, SettingsFragment())
+                .commit()
+        }
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.color_preference, rootKey)

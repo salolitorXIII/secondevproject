@@ -17,3 +17,4 @@ interface NasaPictureDao {
     @Query("DELETE FROM nasa_pictures")
     suspend fun deleteAll()
 }
+

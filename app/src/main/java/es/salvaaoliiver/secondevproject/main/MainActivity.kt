@@ -114,4 +114,8 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
         editor.clear()
         editor.apply()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
 }

@@ -6,16 +6,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.FirebaseFirestore
+import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentChatBinding
 import es.salvaaoliiver.secondevproject.login.AuthManager
 import es.salvaaoliiver.secondevproject.main.MainActivity
 import es.salvaaoliiver.secondevproject.main.bottombar.chat.`object`.Message
+import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 import java.util.*
 
 class ChatFragment : Fragment() {
@@ -23,6 +26,17 @@ class ChatFragment : Fragment() {
     private lateinit var binding: FragmentChatBinding
     private lateinit var firestore: FirebaseFirestore
     private lateinit var adapter: ChatAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.menuFragmentoContainer, HomeFragment())
+                .commit()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

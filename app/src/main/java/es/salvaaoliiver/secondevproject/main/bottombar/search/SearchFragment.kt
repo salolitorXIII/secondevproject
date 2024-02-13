@@ -5,11 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentSearchBinding
 import es.salvaaoliiver.secondevproject.main.MainActivity
+import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 import es.salvaaoliiver.secondevproject.main.database.Recipe
 import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
 import es.salvaaoliiver.secondevproject.main.bottombar.home.RecipeDetailFragment
@@ -22,6 +24,17 @@ class SearchFragment : Fragment(), RecipesAdapter.RecipeClickListener {
     private lateinit var binding: FragmentSearchBinding
     private lateinit var recipesAdapter: RecipesAdapter
     private lateinit var recipesList: MutableList<Recipe>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.menuFragmentoContainer, HomeFragment())
+                .commit()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

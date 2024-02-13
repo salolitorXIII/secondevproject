@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentRegistroUsuarioBinding
@@ -16,10 +17,21 @@ import kotlinx.coroutines.withContext
 class RegistroUsuarioFragment : Fragment() {
     private lateinit var binding: FragmentRegistroUsuarioBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.beginTransaction()
+                .replace(R.id.menuFragmentoContainerLogin, LoginFragment())
+                .commit()
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         binding = FragmentRegistroUsuarioBinding.inflate(layoutInflater, container, false)
 
         binding.btnRegister.setOnClickListener {
