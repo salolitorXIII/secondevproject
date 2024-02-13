@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "es.salvaaoliiver.secondevproject"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "es.salvaaoliiver.secondevproject"
         minSdk = 23
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -42,16 +42,28 @@ android {
 
 dependencies {
 
+    implementation ("com.github.QuadFlask:colorpicker:0.0.15")
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-auth")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.google.firebase:firebase-firestore-ktx:24.10.1")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.picasso:picasso:2.71828")
+    implementation("com.squareup.picasso:picasso:2.71828")
     implementation("androidx.preference:preference:1.2.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
+    implementation("androidx.preference:preference-ktx:1.2.1")
+    implementation("androidx.room:room-compiler:2.6.1") {
+        exclude(group = "com.intellij", module = "annotations")
+    }
+    implementation("androidx.room:room-common:2.6.1") {
+        exclude(group = "com.intellij", module = "annotations")
+    }
+    implementation("androidx.room:room-ktx:2.6.1") {
+        exclude(group = "com.intellij", module = "annotations")
+    }
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

@@ -1,17 +1,21 @@
 package es.salvaaoliiver.secondevproject.main.bottombar.chat
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.firestore.FirebaseFirestore
 import es.salvaaoliiver.secondevproject.databinding.FragmentChatBinding
 import es.salvaaoliiver.secondevproject.login.AuthManager
+import es.salvaaoliiver.secondevproject.main.MainActivity
+import es.salvaaoliiver.secondevproject.main.bottombar.chat.`object`.Message
 import java.util.*
 
 class ChatFragment : Fragment() {
@@ -25,14 +29,18 @@ class ChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentChatBinding.inflate(inflater, container, false)
+        firestore = FirebaseFirestore.getInstance()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firestore = FirebaseFirestore.getInstance()
-        adapter = ChatAdapter(mutableListOf())
+        (activity as MainActivity).supportActionBar?.title = "Chat"
+
+        val (fontColor, bgColor) = obtenerColores()
+        binding.layout.setBackgroundColor(bgColor)
+        adapter = ChatAdapter(mutableListOf(), fontColor)
 
         binding.recyclerViewChat.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerViewChat.adapter = adapter
@@ -70,7 +78,8 @@ class ChatFragment : Fragment() {
         val message = Message(
             senderId = currentUserID,
             text = messageText,
-            timestamp = Date().time
+            timestamp = Date().time,
+            nameUser = obtenerNombreUsuario()
         )
         firestore.collection("chats")
             .add(message)
@@ -81,6 +90,18 @@ class ChatFragment : Fragment() {
             .addOnFailureListener(OnFailureListener { e ->
                 Log.e(TAG, "Error sending message", e)
             })
+    }
+
+    private fun obtenerNombreUsuario(): String {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        return sharedPreferences.getString("chat_username", "") ?: ""
+    }
+
+    private fun obtenerColores(): Pair<Int, Int> {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val fontColor = sharedPreferences.getInt("chat_font_color", Color.BLACK)
+        val bgColor = sharedPreferences.getInt("chat_bg_color", Color.WHITE)
+        return Pair(fontColor, bgColor)
     }
 
 

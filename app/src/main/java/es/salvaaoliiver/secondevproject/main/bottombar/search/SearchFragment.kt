@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.FragmentSearchBinding
+import es.salvaaoliiver.secondevproject.main.MainActivity
 import es.salvaaoliiver.secondevproject.main.database.Recipe
 import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
 import es.salvaaoliiver.secondevproject.main.bottombar.home.RecipeDetailFragment
@@ -32,6 +33,9 @@ class SearchFragment : Fragment(), RecipesAdapter.RecipeClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (activity as MainActivity).supportActionBar?.title = "Search"
+
         recipesList = mutableListOf()
 
         loadPublicRecipes()

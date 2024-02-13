@@ -1,5 +1,6 @@
 package es.salvaaoliiver.secondevproject.main.bottombar.api
 
+import es.salvaaoliiver.secondevproject.main.bottombar.api.`object`.NasaPictureOfDay
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

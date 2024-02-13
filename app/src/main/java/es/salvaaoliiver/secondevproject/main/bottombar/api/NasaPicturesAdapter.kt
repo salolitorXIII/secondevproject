@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import es.salvaaoliiver.secondevproject.R
+import es.salvaaoliiver.secondevproject.main.bottombar.api.`object`.NasaPictureOfDay
 
 class NasaPicturesAdapter(private var images: List<NasaPictureOfDay>) :
     RecyclerView.Adapter<NasaPicturesAdapter.NasaPictureViewHolder>() {

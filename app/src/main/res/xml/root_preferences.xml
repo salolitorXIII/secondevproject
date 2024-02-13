@@ -1,30 +1,24 @@
-<!-- settings_fragment.xml -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Category: Chat -->
     <PreferenceCategory
         android:title="Chat">
 
-        <!-- Chat Username -->
         <EditTextPreference
             android:key="chat_username"
             android:title="Chat Username"
-            android:defaultValue="Firebase Username"
             android:summary="Enter your chat username" />
 
-        <!-- Chat Color -->
-        <EditTextPreference
-            android:key="chat_color"
+        <PreferenceScreen
+            android:key="chat_color_submenu"
             android:title="Chat Color"
-            android:summary="Choose background or font color for chats" />
+            android:summary="Choose background or font color for chats"
+            android:fragment="es.salvaaoliiver.secondevproject.main.menu.preferences.ColorPreferenceFragment" />
 
     </PreferenceCategory>
 
-    <!-- Category: Cache -->
     <PreferenceCategory
         android:title="Cache">
 
-        <!-- Offline Mode -->
         <SwitchPreferenceCompat
             android:key="offline_mode"
             android:title="Offline Mode"
@@ -32,11 +26,9 @@
 
     </PreferenceCategory>
 
-    <!-- Category: General -->
     <PreferenceCategory
         android:title="General">
 
-        <!-- Vibrate -->
         <CheckBoxPreference
             android:key="vibrate"
             android:title="Vibrate"

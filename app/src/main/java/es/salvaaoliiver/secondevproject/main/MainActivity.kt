@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationBarView
 import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.ActivityMainBinding
@@ -18,6 +19,7 @@ import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
 import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
 import es.salvaaoliiver.secondevproject.main.menu.multimedia.MultimediaFragment
 import es.salvaaoliiver.secondevproject.main.bottombar.search.SearchFragment
+import es.salvaaoliiver.secondevproject.main.menu.preferences.SettingsFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -60,6 +62,7 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.menu ->{
+                loadFragment(SettingsFragment())
                 true
             }
             R.id.multimedia -> {
@@ -104,4 +107,11 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
     }
     // END REPLACE FRAGMENT
 
+    override fun onDestroy() {
+        super.onDestroy()
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
+    }
 }
