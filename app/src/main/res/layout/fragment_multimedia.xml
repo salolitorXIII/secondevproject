@@ -45,7 +45,8 @@
         android:text="Stop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoView" />
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        android:backgroundTint="@color/secondary"/>
 
     <Button
         android:id="@+id/btn_play_pause"
@@ -59,7 +60,8 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_stop"
         app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toEndOf="@+id/btn_start"
-        app:layout_constraintTop_toBottomOf="@+id/videoView" />
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        android:backgroundTint="@color/secondary"/>
 
     <Button
         android:id="@+id/btn_start"
@@ -72,7 +74,8 @@
         android:text="Start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoView" />
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        android:backgroundTint="@color/secondary"/>
 
     <VideoView
         android:id="@+id/videoView"
