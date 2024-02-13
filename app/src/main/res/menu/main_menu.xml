@@ -9,5 +9,5 @@
         android:id="@+id/multimedia"
         android:title="multimedia"
         android:icon="@drawable/ic_multimedia"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>

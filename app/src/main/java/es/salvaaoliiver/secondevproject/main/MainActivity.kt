@@ -11,12 +11,13 @@ import com.google.android.material.navigation.NavigationBarView
 import es.salvaaoliiver.secondevproject.R
 import es.salvaaoliiver.secondevproject.databinding.ActivityMainBinding
 import es.salvaaoliiver.secondevproject.login.AuthManager
-import es.salvaaoliiver.secondevproject.main.add.AddFragment
-import es.salvaaoliiver.secondevproject.main.api.RetrofitFragment
-import es.salvaaoliiver.secondevproject.main.chat.ChatFragment
+import es.salvaaoliiver.secondevproject.main.bottombar.add.AddFragment
+import es.salvaaoliiver.secondevproject.main.bottombar.api.RetrofitFragment
+import es.salvaaoliiver.secondevproject.main.bottombar.chat.ChatFragment
 import es.salvaaoliiver.secondevproject.main.database.RecipesRepository
-import es.salvaaoliiver.secondevproject.main.home.HomeFragment
-import es.salvaaoliiver.secondevproject.main.search.SearchFragment
+import es.salvaaoliiver.secondevproject.main.bottombar.home.HomeFragment
+import es.salvaaoliiver.secondevproject.main.menu.multimedia.MultimediaFragment
+import es.salvaaoliiver.secondevproject.main.bottombar.search.SearchFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -62,8 +63,10 @@ class MainActivity : AppCompatActivity() , NavigationBarView.OnItemSelectedListe
                 true
             }
             R.id.multimedia -> {
+                loadFragment(MultimediaFragment())
                 true
-            } else -> false
+            }
+            else -> false
         }
     }
 
